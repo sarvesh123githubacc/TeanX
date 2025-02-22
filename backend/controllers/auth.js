@@ -61,12 +61,13 @@ const userLogin = async (req, res) => {
 		return res.json({ message: "Email and password are required" });
 	}
 
+
 	const user = await User.findOne({ email });
 	if (!user) {
 		return res.json({ messgae: "User does not exist" });
 	}
-	const auth = await bcrypt.compare(password, user.password);
-	if (!auth) {
+	// const auth = await bcrypt.compare(password, user.password);
+	if (!password == user.password) {
 		return res.json({ message: "Incorrect password or email" });
 	}
 	const token = createSecret(user._id);
